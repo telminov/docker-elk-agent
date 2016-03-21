@@ -1,0 +1,31 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - /log/localhost/syslog
+        - /log/localhost/auth.log
+      #  - /var/log/*.log
+
+      input_type: log
+
+      document_type: syslog
+
+  registry_file: /var/lib/filebeat/registry
+
+output:
+  logstash:
+    hosts: ["elk-server:5044"]
+    bulk_max_size: 1024
+
+    tls:
+      certificate_authorities: ["/tls/certs/logstash-forwarder.crt"]
+
+shipper:
+
+logging:
+  files:
+    path: /var/log
+    rotateeverybytes: 10485760 # = 10MB
+  to_files: true
+  to_syslog: false
+  level:  info

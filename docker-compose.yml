@@ -1,0 +1,8 @@
+version: '2'
+services:
+  elk-server:
+    image: telminov/elk-agent
+    volumes:
+     - /var/docker/elk_agent/conf/:/conf/
+     - /var/docker/elk_agent/tls:/tls
+     - /var/log:/log/localhost
