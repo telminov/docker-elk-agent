@@ -1,0 +1,25 @@
+input:
+  period: 10
+  procs: [".*"]
+
+  stats:
+    system: true
+    proc: true
+    filesystem: true
+
+output:
+  logstash:
+    hosts: ["elk-server:5044"]
+
+    tls:
+      certificate_authorities: ["/tls/certs/logstash-forwarder.crt"]
+
+shipper:
+
+logging:
+  files:
+    path: /var/log
+    rotateeverybytes: 10485760 # = 10MB
+  to_files: true
+  to_syslog: false
+  level:  info
